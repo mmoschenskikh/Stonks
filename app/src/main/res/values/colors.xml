@@ -5,6 +5,14 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#FF1A1A1A</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="stock_light">#FFFFFFFF</color>
+    <color name="stock_dark">#FFF0F4F7</color>
+
+    <color name="stock_raise">#FF24B35D</color>
+    <color name="stock_fall">#FFB32424</color>
+
+    <color name="transparent">#00000000</color>
 </resources>

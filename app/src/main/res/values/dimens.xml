@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="stock_shape_radius">16dp</dimen>
+
+    <dimen name="stock_icon_margin">8dp</dimen>
+    <dimen name="stock_icon_size">52dp</dimen>
+    <dimen name="stock_icon_radius">16dp</dimen>
+
+    <dimen name="ticker_text_size">18sp</dimen>
+    <dimen name="name_text_size">12sp</dimen>
+
+    <dimen name="icon_text_margin">12dp</dimen>
+    <dimen name="text_edge_margin">14dp</dimen>
+</resources>
