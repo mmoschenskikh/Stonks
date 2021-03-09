@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    tools:ignore="RtlSymmetry">
+
+    <TextView
+        style="@style/SearchSuggestionsTitle"
+        android:text="@string/popular_requests" />
+
+    <include
+        android:id="@+id/popularList"
+        layout="@layout/search_suggestions_list" />
+
+    <TextView
+        style="@style/SearchSuggestionsTitle"
+        android:layout_marginTop="20dp"
+        android:text="@string/searched_earlier" />
+
+    <include
+        android:id="@+id/previousSearchList"
+        layout="@layout/search_suggestions_list" />
+
+</LinearLayout>
