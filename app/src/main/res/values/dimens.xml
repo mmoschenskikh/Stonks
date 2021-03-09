@@ -6,9 +6,15 @@
     <dimen name="stock_icon_size">52dp</dimen>
     <dimen name="stock_icon_radius">16dp</dimen>
 
-    <dimen name="ticker_text_size">18sp</dimen>
-    <dimen name="name_text_size">12sp</dimen>
+    <dimen name="large_text_size">18sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
 
     <dimen name="icon_text_margin">12dp</dimen>
     <dimen name="text_edge_margin">14dp</dimen>
+
+    <dimen name="word_bubble_radius">20dp</dimen>
+    <dimen name="stock_list_padding">16dp</dimen>
+
+    <dimen name="word_bubble_side_margin">16dp</dimen>
+    <dimen name="word_bubble_top_bottom_margin">12dp</dimen>
 </resources>
