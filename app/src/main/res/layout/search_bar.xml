@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_bar_height"
+        android:background="@drawable/selector_search_bar"
+        android:fontFamily="@font/montserrat"
+        android:hint="@string/search_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingStart="@dimen/search_bar_text_padding"
+        android:paddingEnd="@dimen/search_bar_text_padding"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/black"
+        android:textColorHint="@drawable/selector_search_hint"
+        android:textColorLink="@color/black"
+        android:textCursorDrawable="@null"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/leftIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/search_bar_side_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/searchEditText"
+        app:layout_constraintStart_toStartOf="@+id/searchEditText"
+        app:layout_constraintTop_toTopOf="@+id/searchEditText"
+        app:srcCompat="@drawable/ic_search"
+        tools:ignore="RtlSymmetry" />
+
+    <ImageView
+        android:id="@+id/rightIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/search_bar_side_padding"
+        android:paddingEnd="@dimen/search_bar_side_padding"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/searchEditText"
+        app:layout_constraintEnd_toEndOf="@+id/searchEditText"
+        app:layout_constraintTop_toTopOf="@+id/searchEditText"
+        app:srcCompat="@drawable/ic_close"
+        tools:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>

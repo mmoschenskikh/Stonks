@@ -3,4 +3,5 @@
     <string name="searched_earlier">You\'ve searched for this</string>
     <string name="popular_requests">Popular requests</string>
     <string name="stocks">Stocks</string>
+    <string name="search_hint">Find company or ticker</string>
 </resources>
