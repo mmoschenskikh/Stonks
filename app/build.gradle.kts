@@ -46,6 +46,10 @@ dependencies {
     implementation(Android.constraintLayout)
     implementation(Android.coreKtx)
 
+    implementation(Room.compiler)
+    implementation(Room.ktx)
+    implementation(Room.runtime)
+
     testImplementation(Testing.jUnit)
     androidTestImplementation(Testing.extJUnit)
     androidTestImplementation(Testing.espresso)

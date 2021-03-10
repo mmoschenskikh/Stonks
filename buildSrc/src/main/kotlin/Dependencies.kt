@@ -21,6 +21,7 @@ object Versions {
     const val constraintLayout = "2.0.4"
     const val ktx = "1.3.2"
     const val material = "1.2.0"
+    const val room = "2.2.6"
 
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
@@ -48,6 +49,12 @@ object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val ktLint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
     const val materialDesign = "com.google.android.material:material:${Versions.material}"
+}
+
+object Room {
+    const val compiler = "androidx.room:room-compiler:${Versions.room}"
+    const val ktx = "androidx.room:room-ktx:${Versions.room}"
+    const val runtime = "androidx.room:room-runtime:${Versions.room}"
 }
 
 object Testing {
