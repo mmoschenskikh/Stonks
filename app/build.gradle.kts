@@ -36,6 +36,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
+        exclude("META-INF/gradle/incremental.annotation.processors")
+    }
 }
 
 dependencies {
@@ -49,6 +53,18 @@ dependencies {
     implementation(Room.compiler)
     implementation(Room.ktx)
     implementation(Room.runtime)
+
+    implementation(Moshi.moshi)
+    implementation(Moshi.codeGen)
+
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.moshiRetrofitConverter)
+
+    implementation(Coroutines.core)
+    implementation(Coroutines.android)
+
+    implementation(Navigation.navigationFragmentKtx)
+    implementation(Navigation.navigationUiKtx)
 
     testImplementation(Testing.jUnit)
     androidTestImplementation(Testing.extJUnit)
