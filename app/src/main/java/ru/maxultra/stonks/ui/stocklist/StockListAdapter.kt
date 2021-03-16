@@ -29,5 +29,5 @@ class StockListAdapter : ListAdapter<Stock, StockViewHolder>(DIFF_CALLBACK) {
         )
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) =
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position)
 }
