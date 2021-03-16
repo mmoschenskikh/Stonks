@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:paddingStart="16dp"
     android:paddingTop="16dp"
+    tools:context=".ui.search.SearchFragment"
     tools:ignore="RtlSymmetry">
 
     <TextView
