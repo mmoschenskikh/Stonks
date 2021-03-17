@@ -20,6 +20,13 @@
         <item name="android:textAlignment">viewStart</item>
     </style>
 
+    <style name="SearchResultTitle" parent="LargeText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
     <style name="StockTextLarge" parent="LargeText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -34,12 +41,6 @@
     <style name="SearchSuggestion" parent="SmallText" />
 
     <style name="StockTextSmall" parent="SmallText" />
-
-    <style name="LayoutWithStockList">
-        <item name="android:paddingStart">@dimen/stock_list_padding</item>
-        <item name="android:paddingTop">@dimen/stock_list_padding</item>
-        <item name="android:paddingEnd">@dimen/stock_list_padding</item>
-    </style>
 
     <style name="TabLayoutText" parent="TextAppearance.Design.Tab">
         <item name="android:fontFamily">@font/montserrat</item>
