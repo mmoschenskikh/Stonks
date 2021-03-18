@@ -5,6 +5,7 @@ import android.view.View
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.maxultra.stonks.R
 import ru.maxultra.stonks.databinding.FragmentTabsBinding
+import ru.maxultra.stonks.databinding.TabItemBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
 
 class TabsFragment : BaseFragment<FragmentTabsBinding>(FragmentTabsBinding::inflate) {
@@ -13,9 +14,19 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(FragmentTabsBinding::infl
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewPager.adapter = TabsAdapter(this)
+
+        binding.tabLayout.addOnTabSelectedListener(TabSelectionListener(::getTabText))
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = getTabText(position)
+            val tabBinding = TabItemBinding.inflate(layoutInflater)
+            tabBinding.tabTextUnselected.text = getTabText(position)
+            tab.customView = tabBinding.root
         }.attach()
+    }
+
+    override fun onDestroyView() {
+        binding.tabLayout.clearOnTabSelectedListeners()
+        super.onDestroyView()
     }
 
     private fun getTabText(position: Int) =
@@ -24,8 +35,4 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(FragmentTabsBinding::infl
             1 -> getString(R.string.favourite)
             else -> throw IllegalArgumentException("No tab expected at position #$position")
         }
-
-    companion object {
-        fun newInstance() = TabsFragment()
-    }
 }
