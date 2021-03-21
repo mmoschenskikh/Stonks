@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.ItemStockBinding
 
-class StockListAdapter : ListAdapter<Stock, StockViewHolder>(DIFF_CALLBACK) {
+class StockListAdapter(private val onItemClicked: (Stock) -> Unit) :
+    ListAdapter<Stock, StockViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Stock>() {
@@ -29,5 +30,5 @@ class StockListAdapter : ListAdapter<Stock, StockViewHolder>(DIFF_CALLBACK) {
         )
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) =
-        holder.bind(getItem(position), position)
+        holder.bind(getItem(position), position, onItemClicked)
 }
