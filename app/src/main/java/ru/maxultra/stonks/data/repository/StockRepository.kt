@@ -18,5 +18,9 @@ class StockRepository(
         emitSource(source)
         val newStockList = fmpService.getStocks().asDatabaseModel()
         stockDao.insertAll(newStockList)
+        newStockList.forEach { // TODO: Load multiple profiles at the time (probably coupled with paging)
+            val stockProfile = fmpService.getProfile(it.ticker)[0].asDatabaseModel()
+            stockDao.update(stockProfile)
+        }
     }
 }

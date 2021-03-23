@@ -5,11 +5,15 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import ru.maxultra.stonks.FMP_API_KEY
 
 interface FmpService {
     @GET("dowjones_constituent?apikey=${FMP_API_KEY}")
     suspend fun getStocks(): List<NetworkListStock>
+
+    @GET("profile/{ticker}?apikey=${FMP_API_KEY}")
+    suspend fun getProfile(@Path("ticker") ticker: String): List<NetworkProfileStock>
 }
 
 private val moshi = Moshi.Builder()
