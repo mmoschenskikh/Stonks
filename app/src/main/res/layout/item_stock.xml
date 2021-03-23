@@ -19,14 +19,15 @@
 
     <TextView
         android:id="@+id/priceDeltaText"
+        style="@style/StockTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        style="@style/StockTextSmall"
-        android:textColor="@color/stock_raise"
+        android:textColor="@color/black"
         app:layout_constraintBaseline_toBaselineOf="@+id/nameText"
         app:layout_constraintEnd_toEndOf="@+id/stockBackground"
-        tools:text="+$0.12 (1,15%)" />
+        tools:text="+$0.12 (1,15%)"
+        tools:textColor="@color/stock_raise" />
 
     <TextView
         android:id="@+id/price"
@@ -63,11 +64,15 @@
 
     <TextView
         android:id="@+id/nameText"
-        android:layout_width="wrap_content"
+        style="@style/StockTextSmall"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/icon_text_margin"
-        style="@style/StockTextSmall"
+        android:layout_marginEnd="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@+id/stockBackground"
+        app:layout_constraintEnd_toStartOf="@+id/priceDeltaText"
         app:layout_constraintStart_toEndOf="@+id/stockImage"
         app:layout_constraintTop_toBottomOf="@+id/tickerText"
         tools:text="@tools:sample/full_names" />
