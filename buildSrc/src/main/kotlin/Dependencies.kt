@@ -26,6 +26,7 @@ object Versions {
     const val moshi = "1.11.0"
     const val retrofit = "2.9.0"
     const val coroutines = "1.4.2"
+    const val lifecycle = "2.3.0"
 
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
@@ -58,6 +59,10 @@ object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val ktLint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
     const val materialDesign = "com.google.android.material:material:${Versions.material}"
+}
+
+object Lifecycle {
+    const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
 }
 
 object Navigation {

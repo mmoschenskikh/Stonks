@@ -50,9 +50,11 @@ dependencies {
     implementation(Android.constraintLayout)
     implementation(Android.coreKtx)
 
-    implementation(Room.compiler)
-    implementation(Room.ktx)
     implementation(Room.runtime)
+    implementation(Room.ktx)
+    kapt(Room.compiler)
+
+    implementation(Lifecycle.liveData)
 
     implementation(Moshi.moshi)
     implementation(Moshi.codeGen)

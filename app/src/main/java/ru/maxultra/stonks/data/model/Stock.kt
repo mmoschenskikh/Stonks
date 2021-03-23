@@ -7,7 +7,7 @@ data class Stock(
     val companyName: String,
     var logoUrl: String? = null,
     var currency: Currency? = null,
-    var currentStockPrice: Int? = null,
-    var previousClosePrice: Int? = null,
+    var currentStockPrice: Double? = null,
+    var dayChange: Double? = null,
     var favourite: Boolean = false
 )
