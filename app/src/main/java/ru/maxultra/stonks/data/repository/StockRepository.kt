@@ -23,4 +23,9 @@ class StockRepository(
             stockDao.update(stockProfile)
         }
     }
+
+    fun getFavouriteStocks(): LiveData<List<Stock>> = liveData {
+        val source = Transformations.map(stockDao.getFavouriteStocks()) { it.asDomainModel() }
+        emitSource(source)
+    }
 }
