@@ -8,7 +8,12 @@ import ru.maxultra.stonks.databinding.ItemStockBinding
 class StockViewHolder(private val binding: ItemStockBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(stock: Stock, position: Int, onItemClicked: (Stock) -> Unit) {
+    fun bind(
+        stock: Stock,
+        position: Int,
+        onItemClicked: (Stock) -> Unit,
+        onFavouriteClicked: (Stock) -> Unit
+    ) {
         binding.tickerText.text = stock.ticker
         binding.nameText.text = stock.companyName
         setBackground(position)

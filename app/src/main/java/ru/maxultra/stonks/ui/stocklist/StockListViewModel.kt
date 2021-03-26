@@ -3,13 +3,20 @@ package ru.maxultra.stonks.ui.stocklist
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.maxultra.stonks.data.database.StockDatabase
+import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.data.network.StonksNetwork
 import ru.maxultra.stonks.data.repository.StockRepository
 
-class StockListViewModel(stockRepository: StockRepository) : ViewModel() {
+class StockListViewModel(private val stockRepository: StockRepository) : ViewModel() {
     val stocks = stockRepository.getStocks()
     val favourite = stockRepository.getFavouriteStocks()
+
+    fun onFavouriteClicked(stock: Stock) = viewModelScope.launch {
+        stockRepository.toggleFavourite(stock)
+    }
 }
 
 class StockListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

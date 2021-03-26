@@ -41,4 +41,10 @@ class StockRepository(
         val source = Transformations.map(stockDao.getFavouriteStocks()) { it.asDomainModel() }
         emitSource(source)
     }
+
+    suspend fun toggleFavourite(stock: Stock) {
+        val dbStock = stockDao.getStock(stock.ticker)
+        val newDbStock = dbStock.update(favourite = !dbStock.favourite)
+        stockDao.update(newDbStock)
+    }
 }
