@@ -37,3 +37,36 @@ fun List<DatabaseStock>.asDomainModel() =
             favourite = it.favourite
         )
     }
+
+/**
+ * Updates some fields without losing existing.
+ */
+fun DatabaseStock.update(
+    companyName: String? = null,
+    logoUrl: String? = null,
+    currency: String? = null,
+    currentPrice: Double? = null,
+    dayChange: Double? = null,
+    description: String? = null,
+    exchangeName: String? = null,
+    sector: String? = null,
+    website: String? = null,
+    priceMonth: String? = null,
+    priceYear: String? = null,
+    favourite: Boolean? = null
+) = DatabaseStock(
+    ticker = this.ticker,
+    companyName = companyName ?: this.companyName,
+    logoUrl = logoUrl ?: this.logoUrl,
+    currency = currency ?: this.currency,
+    currentPrice = currentPrice ?: this.currentPrice,
+    dayChange = dayChange ?: this.dayChange,
+    description = description ?: this.description,
+    exchangeName = exchangeName ?: this.exchangeName,
+    sector = sector ?: this.sector,
+    website = website ?: this.website,
+    priceMonth = priceMonth ?: this.priceMonth,
+    priceYear = priceYear ?: this.priceYear,
+    favourite = favourite ?: this.favourite
+)
+

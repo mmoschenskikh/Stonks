@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import ru.maxultra.stonks.data.database.StockDao
 import ru.maxultra.stonks.data.database.asDomainModel
+import ru.maxultra.stonks.data.database.update
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.data.network.FmpService
 import ru.maxultra.stonks.data.network.asDatabaseModel
@@ -19,8 +20,20 @@ class StockRepository(
         val newStockList = fmpService.getStocks().asDatabaseModel()
         stockDao.insertAll(newStockList)
         newStockList.forEach { // TODO: Load multiple profiles at the time (probably coupled with paging)
-            val stockProfile = fmpService.getProfile(it.ticker)[0].asDatabaseModel()
-            stockDao.update(stockProfile)
+            val stockProfile = fmpService.getProfile(it.ticker)[0]
+            val oldDbStock = stockDao.getStock(stockProfile.ticker)
+            val newDbStock = oldDbStock.update(
+                companyName = stockProfile.companyName,
+                logoUrl = stockProfile.logoUrl,
+                currency = stockProfile.currency,
+                currentPrice = stockProfile.currentStockPrice,
+                dayChange = stockProfile.diff,
+                description = stockProfile.description,
+                exchangeName = stockProfile.exchangeName,
+                sector = stockProfile.sector,
+                website = stockProfile.website
+            )
+            stockDao.update(newDbStock)
         }
     }
 
