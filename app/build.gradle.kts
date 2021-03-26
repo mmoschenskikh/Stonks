@@ -50,6 +50,7 @@ dependencies {
 
     implementation(Android.appcompat)
     implementation(Android.constraintLayout)
+    implementation(Android.coordinatorLayout)
     implementation(Android.coreKtx)
 
     implementation(Room.runtime)

@@ -19,6 +19,7 @@ object Versions {
 
     const val appCompat = "1.2.0"
     const val constraintLayout = "2.0.4"
+    const val coordinatorLayout = "1.1.0"
     const val ktx = "1.3.2"
     const val material = "1.2.0"
     const val navigation = "2.3.0"
@@ -49,6 +50,8 @@ object Android {
     const val coreKtx = "androidx.core:core-ktx:${Versions.ktx}"
     const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val coordinatorLayout =
+        "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinatorLayout}"
 }
 
 object Coroutines {

@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentInsetStart="0dp"
-        app:titleMargin="0dp">
+        app:elevation="0dp">
 
-        <include
-            android:id="@+id/searchBar"
-            layout="@layout/search_bar"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp" />
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content"
+            app:contentInsetStart="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleMargin="0dp">
+
+            <include
+                android:id="@+id/searchBar"
+                layout="@layout/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <fragment
         android:id="@+id/navHostFragment"
@@ -30,5 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:navGraph="@navigation/navigation" />
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
