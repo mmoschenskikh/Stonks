@@ -46,6 +46,8 @@ dependencies {
     implementation(Dependencies.kotlin)
     implementation(Dependencies.materialDesign)
 
+    implementation(Dependencies.coil)
+
     implementation(Android.appcompat)
     implementation(Android.constraintLayout)
     implementation(Android.coreKtx)

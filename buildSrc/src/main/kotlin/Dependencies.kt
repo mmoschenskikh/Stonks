@@ -27,6 +27,7 @@ object Versions {
     const val retrofit = "2.9.0"
     const val coroutines = "1.4.2"
     const val lifecycle = "2.3.0"
+    const val coil = "1.1.1"
 
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
@@ -59,6 +60,7 @@ object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val ktLint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
     const val materialDesign = "com.google.android.material:material:${Versions.material}"
+    const val coil = "io.coil-kt:coil:${Versions.coil}"
 }
 
 object Lifecycle {
