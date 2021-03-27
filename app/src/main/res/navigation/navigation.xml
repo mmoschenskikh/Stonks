@@ -36,10 +36,8 @@
             app:destination="@id/stockCardFragment" />
         <action
             android:id="@+id/action_searchResultFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_searchResultFragment_to_tabsFragment"
-            app:destination="@id/tabsFragment" />
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/tabsFragment" />
     </fragment>
     <fragment
         android:id="@+id/stockCardFragment"
