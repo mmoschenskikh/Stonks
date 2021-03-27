@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import ru.maxultra.stonks.R
 import ru.maxultra.stonks.databinding.SearchBarBinding
@@ -35,6 +36,14 @@ fun SearchBarBinding.manageSearchBar(context: Context, viewModel: SearchViewMode
             rightIcon.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
         }
     })
+
+    searchEditText.setOnEditorActionListener { v, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            context.hideKeyboard(v)
+            return@setOnEditorActionListener true
+        }
+        return@setOnEditorActionListener false
+    }
 
     leftIcon.setOnClickListener {
         if (searchEditText.isFocused) {

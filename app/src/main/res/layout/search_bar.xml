@@ -12,6 +12,7 @@
         android:background="@drawable/selector_search_bar"
         android:fontFamily="@font/montserrat"
         android:hint="@string/search_hint"
+        android:imeOptions="actionSearch"
         android:importantForAutofill="no"
         android:inputType="text"
         android:lines="1"
