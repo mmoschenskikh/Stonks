@@ -19,21 +19,49 @@ class StockRepository(
         emitSource(source)
         val newStockList = fmpService.getStocks().asDatabaseModel()
         stockDao.insertAll(newStockList)
-        newStockList.forEach { // TODO: Load multiple profiles at the time (probably coupled with paging)
-            val stockProfile = fmpService.getProfile(it.ticker)[0]
-            val oldDbStock = stockDao.getStock(stockProfile.ticker)
-            val newDbStock = oldDbStock.update(
-                companyName = stockProfile.companyName,
-                logoUrl = stockProfile.logoUrl,
-                currency = stockProfile.currency,
-                currentPrice = stockProfile.currentStockPrice,
-                dayChange = stockProfile.diff,
-                description = stockProfile.description,
-                exchangeName = stockProfile.exchangeName,
-                sector = stockProfile.sector,
-                website = stockProfile.website
-            )
-            stockDao.update(newDbStock)
+        newStockList.chunked(50).forEach { chunkedPart ->
+            val profilesQuery = chunkedPart.joinToString { it.ticker }
+            val profilesResponse = fmpService.getProfile(profilesQuery)
+            profilesResponse.forEach {
+                val oldDbStock = stockDao.getStock(it.ticker)
+                val newDbStock = oldDbStock.update(
+                    companyName = it.companyName,
+                    logoUrl = it.logoUrl,
+                    currency = it.currency,
+                    currentPrice = it.currentStockPrice,
+                    dayChange = it.diff,
+                    description = it.description,
+                    exchangeName = it.exchangeName,
+                    sector = it.sector,
+                    website = it.website
+                )
+                stockDao.update(newDbStock)
+            }
+        }
+
+        source.value?.let { stockList ->
+            val requestedTickers = newStockList.map { it.ticker }
+            stockList.filterNot { it.ticker in requestedTickers }.chunked(50)
+                .forEach { chunkedPart ->
+                    val existingQuery =
+                        chunkedPart.joinToString { it.ticker }
+                    val existingResponse = fmpService.getProfile(existingQuery)
+                    existingResponse.forEach {
+                        val oldDbStock = stockDao.getStock(it.ticker)
+                        val newDbStock = oldDbStock.update(
+                            companyName = it.companyName,
+                            logoUrl = it.logoUrl,
+                            currency = it.currency,
+                            currentPrice = it.currentStockPrice,
+                            dayChange = it.diff,
+                            description = it.description,
+                            exchangeName = it.exchangeName,
+                            sector = it.sector,
+                            website = it.website
+                        )
+                        stockDao.update(newDbStock)
+                    }
+                }
         }
     }
 
