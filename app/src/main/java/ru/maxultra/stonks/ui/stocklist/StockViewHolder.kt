@@ -29,7 +29,9 @@ class StockViewHolder(private val binding: ItemStockBinding) :
             binding.starImage.setImageResource(getStarImage(stock.favourite))
         }
         binding.stockImage.clipToOutline = true
-        binding.stockImage.load(stock.logoUrl)
+        binding.stockImage.load(stock.logoUrl) {
+            error(R.drawable.ic_no_image)
+        }
         stock.currency?.let { currency ->
             stock.currentStockPrice?.let { price ->
                 binding.price.text = formatPrice(currency, price)
