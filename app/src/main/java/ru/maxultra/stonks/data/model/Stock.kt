@@ -4,7 +4,7 @@ import java.util.*
 
 data class Stock(
     val ticker: String,
-    val companyName: String,
+    val companyName: String? = null,
     var logoUrl: String? = null,
     var currency: Currency? = null,
     var currentStockPrice: Double? = null,

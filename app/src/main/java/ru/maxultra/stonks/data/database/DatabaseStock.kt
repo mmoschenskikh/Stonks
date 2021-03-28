@@ -11,7 +11,7 @@ import java.util.*
 @Entity
 data class DatabaseStock(
     @PrimaryKey val ticker: String,
-    val companyName: String,
+    val companyName: String? = null,
     val logoUrl: String? = null,
     val currency: String? = null,
     val currentPrice: Double? = null,
@@ -27,11 +27,16 @@ data class DatabaseStock(
 
 fun List<DatabaseStock>.asDomainModel() =
     map {
+        val currency = try {
+            it.currency?.run { Currency.getInstance(this) }
+        } catch (e: Exception) { // Default currency is USD
+            Currency.getInstance("USD")
+        }
         Stock(
             ticker = it.ticker,
             companyName = it.companyName,
             logoUrl = it.logoUrl,
-            currency = it.currency?.run { Currency.getInstance(this) },
+            currency = currency,
             currentStockPrice = it.currentPrice,
             dayChange = it.dayChange,
             favourite = it.favourite

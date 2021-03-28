@@ -5,7 +5,7 @@ import ru.maxultra.stonks.data.database.DatabaseStock
 
 data class NetworkListStock(
     @Json(name = "symbol") val ticker: String,
-    @Json(name = "name") val companyName: String
+    @Json(name = "name") val companyName: String?
 )
 
 fun List<NetworkListStock>.asDatabaseModel() =
@@ -18,21 +18,21 @@ fun List<NetworkListStock>.asDatabaseModel() =
 
 data class NetworkProfileStock(
     @Json(name = "symbol") val ticker: String,
-    @Json(name = "companyName") val companyName: String,
-    @Json(name = "image") val logoUrl: String,
-    @Json(name = "currency") val currency: String,
-    @Json(name = "price") val currentStockPrice: Double,
-    @Json(name = "changes") val diff: Double,
-    @Json(name = "description") val description: String,
-    @Json(name = "exchange") val exchangeName: String,
-    @Json(name = "sector") val sector: String,
-    @Json(name = "website") val website: String
+    @Json(name = "companyName") val companyName: String?,
+    @Json(name = "image") val logoUrl: String?,
+    @Json(name = "currency") val currency: String?,
+    @Json(name = "price") val currentStockPrice: Double?,
+    @Json(name = "changes") val diff: Double?,
+    @Json(name = "description") val description: String?,
+    @Json(name = "exchange") val exchangeName: String?,
+    @Json(name = "sector") val sector: String?,
+    @Json(name = "website") val website: String?
 )
 
 fun NetworkProfileStock.asDatabaseModel() =
     DatabaseStock(
         ticker = ticker,
-        companyName = companyName,
+        companyName = companyName ?: "",
         logoUrl = logoUrl,
         currency = currency,
         currentPrice = currentStockPrice,
