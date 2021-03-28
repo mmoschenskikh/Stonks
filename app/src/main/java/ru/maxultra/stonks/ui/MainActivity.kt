@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import ru.maxultra.stonks.R
 import ru.maxultra.stonks.databinding.ActivityMainBinding
 import ru.maxultra.stonks.ui.search.SearchViewModel
+import ru.maxultra.stonks.ui.search.SearchViewModelFactory
 import ru.maxultra.stonks.ui.search.clear
 import ru.maxultra.stonks.ui.search.manageSearchBar
 
@@ -18,7 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private val searchViewModel by viewModels<SearchViewModel>()
+    private val viewModelFactory by lazy { SearchViewModelFactory(this) }
+    private val searchViewModel by viewModels<SearchViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

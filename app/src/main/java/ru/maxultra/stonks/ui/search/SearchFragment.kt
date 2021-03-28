@@ -15,7 +15,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private val adapterPopular = SuggestionListAdapter(::onItemClicked)
     private val adapterPrevious = SuggestionListAdapter(::onItemClicked)
-    private val viewModel by activityViewModels<SearchViewModel>()
+    private val viewModelFactory by lazy { SearchViewModelFactory(requireContext()) }
+    private val viewModel by activityViewModels<SearchViewModel> { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,

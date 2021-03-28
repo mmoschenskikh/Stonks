@@ -6,14 +6,25 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import ru.maxultra.stonks.FMP_API_KEY
 
 interface FmpService {
-    @GET("dowjones_constituent?apikey=${FMP_API_KEY}")
-    suspend fun getStocks(): List<NetworkListStock>
+    @GET("dowjones_constituent")
+    suspend fun getStocks(@Query("apikey") apiKey: String = FMP_API_KEY): List<NetworkListStock>
 
     @GET("profile/{ticker}?apikey=${FMP_API_KEY}")
-    suspend fun getProfile(@Path("ticker") ticker: String): List<NetworkProfileStock>
+    suspend fun getProfile(
+        @Path("ticker") ticker: String,
+        @Query("apikey") apiKey: String = FMP_API_KEY
+    ): List<NetworkProfileStock>
+
+    @GET("search")
+    suspend fun search(
+        @Query("query") query: String,
+        @Query("limit") limit: Int = 50,
+        @Query("apikey") apiKey: String = FMP_API_KEY
+    ): List<NetworkListStock>
 }
 
 private val moshi = Moshi.Builder()

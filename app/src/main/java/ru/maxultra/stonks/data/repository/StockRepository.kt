@@ -47,4 +47,28 @@ class StockRepository(
         val newDbStock = dbStock.update(favourite = !dbStock.favourite)
         stockDao.update(newDbStock)
     }
+
+    suspend fun search(query: String): List<Stock> {
+        val searchResultList = fmpService.search(query).asDatabaseModel()
+        stockDao.insertAll(searchResultList)
+        val searchResultProfiles = searchResultList.joinToString { it.ticker }
+        val searchResultProfilesResponse = fmpService.getProfile(searchResultProfiles)
+        val loadedSearchResultList = searchResultProfilesResponse.map {
+            val oldDbStock = stockDao.getStock(it.ticker)
+            val newDbStock = oldDbStock.update(
+                companyName = it.companyName,
+                logoUrl = it.logoUrl,
+                currency = it.currency,
+                currentPrice = it.currentStockPrice,
+                dayChange = it.diff,
+                description = it.description,
+                exchangeName = it.exchangeName,
+                sector = it.sector,
+                website = it.website
+            )
+            stockDao.update(newDbStock)
+            newDbStock
+        }
+        return loadedSearchResultList.asDomainModel()
+    }
 }
