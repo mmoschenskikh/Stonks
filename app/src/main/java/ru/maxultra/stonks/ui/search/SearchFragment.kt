@@ -36,6 +36,38 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        adapterPopular.submitList(
+            listOf(
+                "Apple",
+                "Amazon",
+                "Google",
+                "Tesla",
+                "Microsoft",
+                "First Solar",
+                "Alibaba",
+                "Facebook",
+                "Mastercard",
+                "Visa"
+            )
+        )
+        adapterPrevious.submitList(
+            listOf(
+                "Nvidia",
+                "Nokia",
+                "Yandex",
+                "GM",
+                "Microsoft",
+                "Baidu",
+                "Intel",
+                "AMD",
+                "Visa",
+                "Bank of America"
+            )
+        )
+    }
+
     private fun onItemClicked(word: String) =
         Toast.makeText(context, word, Toast.LENGTH_SHORT).show()
 }
