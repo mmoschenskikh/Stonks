@@ -1,4 +1,4 @@
-package ru.maxultra.stonks
+package ru.maxultra.stonks.util
 
 fun Double.round(decimals: Int): Double {
     var multiplier = 1.0

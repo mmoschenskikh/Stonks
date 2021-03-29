@@ -1,11 +1,10 @@
-package ru.maxultra.stonks.ui
+package ru.maxultra.stonks.util
 
 import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import ru.maxultra.stonks.R
-import ru.maxultra.stonks.round
 import java.text.NumberFormat
 import java.util.*
 import kotlin.math.abs

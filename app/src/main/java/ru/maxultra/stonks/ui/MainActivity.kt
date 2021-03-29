@@ -14,6 +14,7 @@ import ru.maxultra.stonks.ui.search.SearchViewModel
 import ru.maxultra.stonks.ui.search.SearchViewModelFactory
 import ru.maxultra.stonks.ui.search.clear
 import ru.maxultra.stonks.ui.search.manageSearchBar
+import ru.maxultra.stonks.util.hideKeyboard
 
 class MainActivity : AppCompatActivity() {
 

@@ -8,7 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import ru.maxultra.stonks.R
 import ru.maxultra.stonks.databinding.SearchBarBinding
-import ru.maxultra.stonks.ui.hideKeyboard
+import ru.maxultra.stonks.util.hideKeyboard
 
 
 /**

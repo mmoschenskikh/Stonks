@@ -6,9 +6,9 @@ import coil.load
 import ru.maxultra.stonks.R
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.ItemStockBinding
-import ru.maxultra.stonks.ui.formatPrice
-import ru.maxultra.stonks.ui.formatPriceDelta
-import ru.maxultra.stonks.ui.priceDeltaColor
+import ru.maxultra.stonks.util.formatPrice
+import ru.maxultra.stonks.util.formatPriceDelta
+import ru.maxultra.stonks.util.priceDeltaColor
 
 class StockViewHolder(private val binding: ItemStockBinding) :
     RecyclerView.ViewHolder(binding.root) {
