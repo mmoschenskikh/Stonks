@@ -2,6 +2,7 @@ package ru.maxultra.stonks.data.network
 
 import com.squareup.moshi.Json
 import ru.maxultra.stonks.data.database.DatabaseStock
+import ru.maxultra.stonks.data.model.Stock
 
 data class NetworkListStock(
     @Json(name = "symbol") val ticker: String,
@@ -14,6 +15,16 @@ fun List<NetworkListStock>.asDatabaseModel() =
             ticker = it.ticker,
             companyName = it.companyName
         )
+    }
+
+data class PopularListStock(
+    @Json(name = "ticker") val ticker: String,
+    @Json(name = "companyName") val companyName: String?
+)
+
+fun List<PopularListStock>.asDomainModel() =
+    map {
+        Stock(ticker = it.ticker, companyName = it.companyName)
     }
 
 data class NetworkProfileStock(

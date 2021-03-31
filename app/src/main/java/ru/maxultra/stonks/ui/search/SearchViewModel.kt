@@ -18,6 +18,10 @@ class SearchViewModel(private val stockRepository: StockRepository) : ViewModel(
     val searchResult: LiveData<List<Stock>>
         get() = _searchResult
 
+    private val _popularRequests = MutableLiveData<List<Stock>>()
+    val popularRequests: LiveData<List<Stock>>
+        get() = _popularRequests
+
     private val _navigateToSearchFragment = MutableLiveData(false)
     val navigateToSearchFragment: LiveData<Boolean>
         get() = _navigateToSearchFragment
@@ -40,6 +44,10 @@ class SearchViewModel(private val stockRepository: StockRepository) : ViewModel(
                 if (it.isNotBlank()) _searchResult.postValue(stockRepository.search(it))
             }
         }
+    }
+
+    fun getPopularStocks() = viewModelScope.launch {
+        _popularRequests.value = stockRepository.getPopularStocks()
     }
 
     fun onFavouriteClicked(stock: Stock) = viewModelScope.launch {

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import ru.maxultra.stonks.R
+import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.FragmentSearchBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
 
@@ -27,6 +28,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.popularList.suggestionList.adapter = adapterPopular
         binding.previousSearchList.suggestionList.adapter = adapterPrevious
 
+        viewModel.getPopularStocks()
+
         viewModel.searchQuery.observe(viewLifecycleOwner) {
             if (it.isNotBlank()) {
                 findNavController().navigate(R.id.action_searchFragment_to_searchResultFragment)
@@ -38,36 +41,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapterPopular.submitList(
-            listOf(
-                "Apple",
-                "Amazon",
-                "Google",
-                "Tesla",
-                "Microsoft",
-                "First Solar",
-                "Alibaba",
-                "Facebook",
-                "Mastercard",
-                "Visa"
-            )
-        )
-        adapterPrevious.submitList(
-            listOf(
-                "Nvidia",
-                "Nokia",
-                "Yandex",
-                "GM",
-                "Microsoft",
-                "Baidu",
-                "Intel",
-                "AMD",
-                "Visa",
-                "Bank of America"
-            )
-        )
+        viewModel.popularRequests.observe(viewLifecycleOwner) {
+            adapterPopular.submitList(it)
+        }
     }
 
-    private fun onItemClicked(word: String) =
-        Toast.makeText(context, word, Toast.LENGTH_SHORT).show()
+    private fun onItemClicked(stock: Stock) =
+        Toast.makeText(context, stock.ticker, Toast.LENGTH_SHORT).show()
 }

@@ -25,6 +25,9 @@ interface FmpService {
         @Query("limit") limit: Int = 50,
         @Query("apikey") apiKey: String = FMP_API_KEY
     ): List<NetworkListStock>
+
+    @GET("actives")
+    suspend fun getPopular(@Query("apikey") apiKey: String = FMP_API_KEY): List<PopularListStock>
 }
 
 private val moshi = Moshi.Builder()
