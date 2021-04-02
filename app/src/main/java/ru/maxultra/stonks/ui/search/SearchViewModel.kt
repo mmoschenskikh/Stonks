@@ -7,9 +7,13 @@ import kotlinx.coroutines.launch
 import ru.maxultra.stonks.data.database.StockDatabase
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.data.network.StonksNetwork
+import ru.maxultra.stonks.data.repository.SearchRepository
 import ru.maxultra.stonks.data.repository.StockRepository
 
-class SearchViewModel(private val stockRepository: StockRepository) : ViewModel() {
+class SearchViewModel(
+    private val stockRepository: StockRepository,
+    private val searchRepository: SearchRepository
+) : ViewModel() {
     private val _searchQuery = MutableLiveData<String>()
     val searchQuery: LiveData<String>
         get() = _searchQuery
@@ -47,7 +51,7 @@ class SearchViewModel(private val stockRepository: StockRepository) : ViewModel(
     }
 
     fun getPopularStocks() = viewModelScope.launch {
-        _popularRequests.value = stockRepository.getPopularStocks()
+        _popularRequests.value = searchRepository.getPopularStocks()
     }
 
     fun onFavouriteClicked(stock: Stock) = viewModelScope.launch {
@@ -74,10 +78,12 @@ class SearchViewModel(private val stockRepository: StockRepository) : ViewModel(
 class SearchViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
-            val dao = StockDatabase.getDatabase(context).stockDao
+            val stockDao = StockDatabase.getDatabase(context).stockDao
+            val recentQueriesDao = StockDatabase.getDatabase(context).recentQueriesDao
             val service = StonksNetwork.service
-            val repository = StockRepository(dao, service)
-            val viewModel = SearchViewModel(repository)
+            val stockRepository = StockRepository(stockDao, service)
+            val searchRepository = SearchRepository(stockDao, recentQueriesDao, service)
+            val viewModel = SearchViewModel(stockRepository, searchRepository)
             return viewModel as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

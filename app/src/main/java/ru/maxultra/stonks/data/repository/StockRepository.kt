@@ -109,10 +109,4 @@ class StockRepository(
         }
         return emptyList()
     }
-
-    suspend fun getPopularStocks(): List<Stock> =
-        fmpService.getPopular()
-            .filterNot { it.companyName.isNullOrBlank() }
-            .sortedBy { it.companyName!!.length }
-            .asDomainModel()
 }
