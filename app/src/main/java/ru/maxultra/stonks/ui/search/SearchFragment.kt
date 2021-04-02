@@ -44,6 +44,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         viewModel.popularRequests.observe(viewLifecycleOwner) {
             adapterPopular.submitList(it)
         }
+        viewModel.recentRequests.observe(viewLifecycleOwner) {
+            adapterPrevious.submitList(it)
+        }
     }
 
     private fun onItemClicked(stock: Stock) =

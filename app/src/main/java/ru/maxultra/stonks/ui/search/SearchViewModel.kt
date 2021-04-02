@@ -26,6 +26,8 @@ class SearchViewModel(
     val popularRequests: LiveData<List<Stock>>
         get() = _popularRequests
 
+    val recentRequests = searchRepository.getRecentQueries()
+
     private val _navigateToSearchFragment = MutableLiveData(false)
     val navigateToSearchFragment: LiveData<Boolean>
         get() = _navigateToSearchFragment
@@ -52,6 +54,10 @@ class SearchViewModel(
 
     fun getPopularStocks() = viewModelScope.launch {
         _popularRequests.value = searchRepository.getPopularStocks()
+    }
+
+    fun onStockClicked(stock: Stock) = viewModelScope.launch {
+        searchRepository.insertQuery(stock)
     }
 
     fun onFavouriteClicked(stock: Stock) = viewModelScope.launch {
