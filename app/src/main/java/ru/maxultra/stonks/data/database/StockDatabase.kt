@@ -8,9 +8,10 @@ import androidx.room.RoomDatabase
 /**
  * A database for the app that stores stocks info.
  */
-@Database(entities = [DatabaseStock::class], version = 1, exportSchema = false)
+@Database(entities = [DatabaseStock::class, SearchQuery::class], version = 1, exportSchema = false)
 abstract class StockDatabase : RoomDatabase() {
     abstract val stockDao: StockDao
+    abstract val recentQueriesDao: RecentQueriesDao
 
     companion object {
         private const val DATABASE_NAME = "stocks"
