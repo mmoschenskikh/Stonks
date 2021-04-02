@@ -16,7 +16,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">4dp</item>
-        <item name="android:layout_marginBottom">11dp</item>
+        <item name="android:layout_marginBottom">@dimen/search_suggestion_margin_bottom</item>
         <item name="android:textAlignment">viewStart</item>
     </style>
 
@@ -41,6 +41,8 @@
     <style name="SearchSuggestion" parent="SmallText" />
 
     <style name="StockTextSmall" parent="SmallText" />
+
+    <style name="SideActionText" parent="SmallText" />
 
     <style name="TabLayoutTextSelected">
         <item name="android:fontFamily">@font/montserrat</item>

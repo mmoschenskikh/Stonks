@@ -17,10 +17,30 @@
         android:id="@+id/popularList"
         layout="@layout/search_suggestions_list" />
 
-    <TextView
-        style="@style/SearchSuggestionsTitle"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/searched_earlier" />
+        android:layout_marginBottom="11dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/SearchSuggestionsTitle"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:text="@string/searched_earlier" />
+
+        <TextView
+            android:id="@+id/clearRecentButton"
+            style="@style/SideActionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/clear_recent_queries" />
+    </LinearLayout>
 
     <include
         android:id="@+id/previousSearchList"

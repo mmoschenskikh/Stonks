@@ -36,6 +36,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
         }
 
+        binding.clearRecentButton.setOnClickListener { viewModel.clearRecent() }
+
         return root
     }
 

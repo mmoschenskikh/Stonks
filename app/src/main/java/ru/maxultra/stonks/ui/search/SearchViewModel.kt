@@ -52,6 +52,8 @@ class SearchViewModel(
         }
     }
 
+    fun clearRecent() = viewModelScope.launch { searchRepository.clearRecentQueries() }
+
     fun getPopularStocks() = viewModelScope.launch {
         _popularRequests.value = searchRepository.getPopularStocks()
     }

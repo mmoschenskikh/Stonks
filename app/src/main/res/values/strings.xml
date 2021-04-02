@@ -5,4 +5,5 @@
     <string name="stocks">Stocks</string>
     <string name="favourite">Favourite</string>
     <string name="search_hint">Find company or ticker</string>
+    <string name="clear_recent_queries">Clear</string>
 </resources>
