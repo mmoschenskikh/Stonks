@@ -13,7 +13,7 @@ interface FmpService {
     @GET("dowjones_constituent")
     suspend fun getStocks(@Query("apikey") apiKey: String = FMP_API_KEY): List<NetworkListStock>
 
-    @GET("profile/{ticker}?apikey=${FMP_API_KEY}")
+    @GET("profile/{ticker}")
     suspend fun getProfile(
         @Path("ticker") ticker: String,
         @Query("apikey") apiKey: String = FMP_API_KEY

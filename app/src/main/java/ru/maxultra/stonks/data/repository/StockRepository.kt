@@ -1,9 +1,6 @@
 package ru.maxultra.stonks.data.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
+import kotlinx.coroutines.flow.map
 import ru.maxultra.stonks.data.database.StockDao
 import ru.maxultra.stonks.data.database.asDomainModel
 import ru.maxultra.stonks.data.database.update
@@ -15,16 +12,30 @@ class StockRepository(
     private val stockDao: StockDao,
     private val fmpService: FmpService
 ) {
-    fun getStocks(): LiveData<List<Stock>> = liveData {
-        val source = Transformations.map(stockDao.getStocks()) { it.asDomainModel() }
-        emitSource(source)
-        try {
-            val newStockList = fmpService.getStocks().asDatabaseModel()
-            stockDao.insertAll(newStockList)
-            newStockList.chunked(50).forEach { chunkedPart ->
-                val profilesQuery = chunkedPart.joinToString { it.ticker }
-                val profilesResponse = fmpService.getProfile(profilesQuery)
-                profilesResponse.forEach {
+    fun getStocks() = stockDao.getStocks().map { it.asDomainModel() }
+
+    fun getFavouriteStocks() = stockDao.getFavouriteStocks().map { it.asDomainModel() }
+
+    suspend fun getStockList() {
+        val networkStockList = fmpService.getStocks()
+            .filter { it.ticker.length < 13 && it.companyName != null }
+        stockDao.insertAll(networkStockList.asDatabaseModel())
+        updateProfiles(networkStockList.map { it.ticker })
+    }
+
+    suspend fun updateProfiles(tickerList: List<String>) {
+        tickerList.chunked(50).forEach { chunk ->
+            val query = chunk.joinToString()
+            val response = fmpService.getProfile(query)
+            response.forEach {
+                if (it.ticker.length < 13
+                    && it.companyName != null
+                    && it.currentStockPrice != null
+                    && it.currentStockPrice != 0.0
+                    && it.currentStockPrice < 1000000
+                    && it.diff != null
+                    && it.diff.isFinite()
+                ) {
                     val oldDbStock = stockDao.getStock(it.ticker)
                     val newDbStock = oldDbStock.update(
                         companyName = it.companyName,
@@ -38,42 +49,13 @@ class StockRepository(
                         website = it.website
                     )
                     stockDao.update(newDbStock)
+                } else {
+                    stockDao.removeStock(it.ticker)
                 }
             }
-            source.value?.let { stockList ->
-                val requestedTickers = newStockList.map { it.ticker }
-                stockList.filterNot { it.ticker in requestedTickers }.chunked(50)
-                    .forEach { chunkedPart ->
-                        val existingQuery =
-                            chunkedPart.joinToString { it.ticker }
-                        val existingResponse = fmpService.getProfile(existingQuery)
-                        existingResponse.forEach {
-                            val oldDbStock = stockDao.getStock(it.ticker)
-                            val newDbStock = oldDbStock.update(
-                                companyName = it.companyName,
-                                logoUrl = it.logoUrl,
-                                currency = it.currency,
-                                currentPrice = it.currentStockPrice,
-                                dayChange = it.diff,
-                                description = it.description,
-                                exchangeName = it.exchangeName,
-                                sector = it.sector,
-                                website = it.website
-                            )
-                            stockDao.update(newDbStock)
-                        }
-                    }
-            }
-        } catch (e: Exception) {
-            Log.e("StockRepository", e.message ?: " ")
         }
-
     }
 
-    fun getFavouriteStocks(): LiveData<List<Stock>> = liveData {
-        val source = Transformations.map(stockDao.getFavouriteStocks()) { it.asDomainModel() }
-        emitSource(source)
-    }
 
     suspend fun toggleFavourite(stock: Stock) {
         val dbStock = stockDao.getStock(stock.ticker)
