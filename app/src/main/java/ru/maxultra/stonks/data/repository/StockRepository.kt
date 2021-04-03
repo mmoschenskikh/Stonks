@@ -13,22 +13,46 @@ class StockRepository(
     private val stockDao: StockDao,
     private val fmpService: FmpService
 ) {
+    /**
+     * Provides LiveData containing all the stocks from the database.
+     */
     fun getStocks() = liveData<List<Stock>> {
         val source = Transformations.map(stockDao.getStocks()) { it.asDomainModel() }
         emitSource(source)
     }
 
+    /**
+     * Provides LiveData containing only favourite stocks.
+     */
     fun getFavouriteStocks() = liveData<List<Stock>> {
         val source = Transformations.map(stockDao.getFavouriteStocks()) { it.asDomainModel() }
         emitSource(source)
     }
 
+    /**
+     * Toggles the "favourite" state.
+     */
+    suspend fun toggleFavourite(stock: Stock) {
+        val dbStock = stockDao.getStock(stock.ticker)
+        val newDbStock = dbStock.update(favourite = !dbStock.favourite)
+        stockDao.update(newDbStock)
+    }
+
+    /**
+     * Fetches the stock list from the remote API and caches it in the database.
+     * Note that the method only gets tickers and company names, so [updateProfiles] should be called after getting the list.
+     * Some stocks may be discarded (considered as invalid) to provide better UX.
+     */
     suspend fun getStockList() {
         val networkStockList = fmpService.getStocks()
             .filter { it.ticker.length < 13 && it.companyName != null }
         stockDao.insertAll(networkStockList.asDatabaseModel())
     }
 
+    /**
+     * Fetches stock profiles for [tickerList] from the remote API and updates database entries.
+     * Some stocks may be discarded (considered as invalid) to provide better UX.
+     */
     suspend fun updateProfiles(tickerList: List<String>) {
         tickerList.chunked(50).forEach { chunk ->
             val query = chunk.joinToString()
