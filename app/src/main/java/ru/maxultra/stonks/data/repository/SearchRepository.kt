@@ -1,7 +1,6 @@
 package ru.maxultra.stonks.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import kotlinx.coroutines.flow.map
 import ru.maxultra.stonks.data.database.RecentQueriesDao
 import ru.maxultra.stonks.data.database.StockDao
 import ru.maxultra.stonks.data.database.asDomainModel
@@ -21,10 +20,8 @@ class SearchRepository(
             .sortedBy { it.companyName!!.length }
             .asDomainModel()
 
-    fun getRecentQueries(): LiveData<List<Stock>> {
-        val source = recentQueriesDao.get()
-        return Transformations.map(source) { it.asDomainModel() }
-    }
+    fun getRecentQueries() = recentQueriesDao.get()
+        .map { recent -> recent.map { stockDao.getStock(it.ticker) }.asDomainModel() }
 
     suspend fun insertQuery(stock: Stock) {
         val query = stock.asRecentQuery()

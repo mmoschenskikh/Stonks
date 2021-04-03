@@ -26,7 +26,8 @@ class SearchViewModel(
     val popularRequests: LiveData<List<Stock>>
         get() = _popularRequests
 
-    val recentRequests = searchRepository.getRecentQueries()
+    val recentRequests =
+        searchRepository.getRecentQueries().asLiveData(viewModelScope.coroutineContext)
 
     private val _navigateToSearchFragment = MutableLiveData(false)
     val navigateToSearchFragment: LiveData<Boolean>
