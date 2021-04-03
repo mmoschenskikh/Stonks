@@ -6,4 +6,6 @@
     <string name="favourite">Favourite</string>
     <string name="search_hint">Find company or ticker</string>
     <string name="clear_recent_queries">Clear</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="list_is_empty">List is empty</string>
 </resources>

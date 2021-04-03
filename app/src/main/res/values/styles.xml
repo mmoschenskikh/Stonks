@@ -44,6 +44,11 @@
 
     <style name="SideActionText" parent="SmallText" />
 
+    <style name="ListEmptyText" parent="StonksAppText">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="TabLayoutTextSelected">
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textColor">@color/black</item>
