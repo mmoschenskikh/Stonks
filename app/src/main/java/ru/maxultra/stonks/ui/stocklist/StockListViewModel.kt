@@ -3,7 +3,6 @@ package ru.maxultra.stonks.ui.stocklist
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.maxultra.stonks.data.database.StockDatabase
@@ -12,12 +11,13 @@ import ru.maxultra.stonks.data.network.StonksNetwork
 import ru.maxultra.stonks.data.repository.StockRepository
 
 class StockListViewModel(private val stockRepository: StockRepository) : ViewModel() {
-    val stocks = stockRepository.getStocks().asLiveData(viewModelScope.coroutineContext)
-    val favourite = stockRepository.getFavouriteStocks().asLiveData(viewModelScope.coroutineContext)
+    val stocks = stockRepository.getStocks()
+    val favourite = stockRepository.getFavouriteStocks()
 
     init {
         viewModelScope.launch {
             stockRepository.getStockList()
+            stocks.value?.let { list -> stockRepository.updateProfiles(list.map { it.ticker }) }
         }
     }
 

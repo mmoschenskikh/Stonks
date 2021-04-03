@@ -1,7 +1,7 @@
 package ru.maxultra.stonks.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface for database access.
@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 interface StockDao {
 
     @Query("SELECT * FROM databasestock")
-    fun getStocks(): Flow<List<DatabaseStock>>
+    fun getStocks(): LiveData<List<DatabaseStock>>
 
     @Query("SELECT * FROM databasestock WHERE favourite = 1")
-    fun getFavouriteStocks(): Flow<List<DatabaseStock>>
+    fun getFavouriteStocks(): LiveData<List<DatabaseStock>>
 
     @Query("SELECT * FROM databasestock WHERE ticker = :ticker LIMIT 1")
     suspend fun getStock(ticker: String): DatabaseStock

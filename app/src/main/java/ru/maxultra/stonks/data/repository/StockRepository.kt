@@ -1,6 +1,7 @@
 package ru.maxultra.stonks.data.repository
 
-import kotlinx.coroutines.flow.map
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.liveData
 import ru.maxultra.stonks.data.database.StockDao
 import ru.maxultra.stonks.data.database.asDomainModel
 import ru.maxultra.stonks.data.database.update
@@ -12,15 +13,20 @@ class StockRepository(
     private val stockDao: StockDao,
     private val fmpService: FmpService
 ) {
-    fun getStocks() = stockDao.getStocks().map { it.asDomainModel() }
+    fun getStocks() = liveData<List<Stock>> {
+        val source = Transformations.map(stockDao.getStocks()) { it.asDomainModel() }
+        emitSource(source)
+    }
 
-    fun getFavouriteStocks() = stockDao.getFavouriteStocks().map { it.asDomainModel() }
+    fun getFavouriteStocks() = liveData<List<Stock>> {
+        val source = Transformations.map(stockDao.getFavouriteStocks()) { it.asDomainModel() }
+        emitSource(source)
+    }
 
     suspend fun getStockList() {
         val networkStockList = fmpService.getStocks()
             .filter { it.ticker.length < 13 && it.companyName != null }
         stockDao.insertAll(networkStockList.asDatabaseModel())
-        updateProfiles(networkStockList.map { it.ticker })
     }
 
     suspend fun updateProfiles(tickerList: List<String>) {
