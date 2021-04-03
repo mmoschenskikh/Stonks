@@ -11,6 +11,7 @@ import ru.maxultra.stonks.R
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.FragmentSearchBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
+import ru.maxultra.stonks.util.Status
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
@@ -28,27 +29,57 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.popularList.suggestionList.adapter = adapterPopular
         binding.previousSearchList.suggestionList.adapter = adapterPrevious
 
-        viewModel.getPopularStocks()
-
         viewModel.searchQuery.observe(viewLifecycleOwner) {
             if (it.isNotBlank()) {
                 findNavController().navigate(R.id.action_searchFragment_to_searchResultFragment)
             }
         }
 
-        binding.clearRecentButton.setOnClickListener { viewModel.clearRecent() }
-
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         viewModel.popularRequests.observe(viewLifecycleOwner) {
             adapterPopular.submitList(it)
         }
+
+        viewModel.popularStatus.observe(viewLifecycleOwner) {
+            when (it) {
+                Status.LOADING -> {
+                    binding.popularList.suggestionList.visibility = View.INVISIBLE
+                    binding.popularEmptyText.visibility = View.INVISIBLE
+                    binding.refreshButton.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.popularEmptyText.visibility = View.INVISIBLE
+                    binding.refreshButton.visibility = View.VISIBLE
+                    binding.popularList.suggestionList.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.popularList.suggestionList.visibility = View.INVISIBLE
+                    binding.popularEmptyText.visibility = View.VISIBLE
+                    binding.refreshButton.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        viewModel.recentIsEmpty.observe(viewLifecycleOwner) {
+            val visibility = when (it) {
+                false -> View.VISIBLE
+                else -> View.INVISIBLE
+            }
+            binding.recentTitle.visibility = visibility
+            binding.clearRecentButton.visibility = visibility
+            binding.previousSearchList.suggestionList.visibility = visibility
+        }
+
         viewModel.recentRequests.observe(viewLifecycleOwner) {
             adapterPrevious.submitList(it)
         }
+
+        binding.clearRecentButton.setOnClickListener { viewModel.clearRecent() }
+        binding.refreshButton.setOnClickListener { viewModel.getPopularStocks() }
+
+        return root
     }
 
     private fun onItemClicked(stock: Stock) =
