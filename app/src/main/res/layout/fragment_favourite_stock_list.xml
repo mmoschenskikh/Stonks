@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/stock_list_padding"
     android:paddingEnd="@dimen/stock_list_padding"
-    tools:context=".ui.stocklist.StockListFragment">
+    tools:context=".ui.stocklist.favouritelist.FavouriteStockListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/stockList"
@@ -15,4 +15,13 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="16"
         tools:listitem="@layout/item_stock" />
+
+    <TextView
+        android:id="@+id/listEmptyText"
+        style="@style/ListEmptyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/list_is_empty"
+        android:visibility="invisible" />
 </FrameLayout>
