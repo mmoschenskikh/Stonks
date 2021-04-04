@@ -1,5 +1,6 @@
 package ru.maxultra.stonks.data.repository
 
+import android.util.Log
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import ru.maxultra.stonks.data.database.StockDao
@@ -30,12 +31,14 @@ class StockRepository(
 
     /**
      * Fetches the stock list from the remote API and caches it in the database.
-     * Note that the method only gets tickers and company names, so [updateProfiles] should be called after getting the list.
      * Some stocks may be discarded (considered as invalid) to provide better UX.
      */
     suspend fun fetchStockList() {
         val networkStockList = fmpService.getStocks()
             .filter { it.ticker.length < 13 && it.companyName != null }
         stockDao.insertAll(networkStockList.asDatabaseModel())
+        val list = networkStockList.map { it.ticker }
+        Log.d("StockRepository", "Updating profiles (${list.size})")
+        updateProfiles(list)
     }
 }

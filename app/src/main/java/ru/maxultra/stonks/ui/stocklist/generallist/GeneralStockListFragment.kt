@@ -31,7 +31,7 @@ class GeneralStockListFragment :
 
         viewModel.stocks.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            if (it.isEmpty()) {
+            if (it.isNullOrEmpty()) {
                 binding.stockList.visibility = View.INVISIBLE
                 binding.listEmptyText.visibility = View.VISIBLE
             } else {
@@ -51,7 +51,7 @@ class GeneralStockListFragment :
             }
         }
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.fetchStockList()
+            viewModel.getStockList()
         }
 
         return root
