@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import ru.maxultra.stonks.R
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.FragmentSearchBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
 import ru.maxultra.stonks.ui.search.suggestionlist.SuggestionListAdapter
 import ru.maxultra.stonks.util.Status
-import ru.maxultra.stonks.util.hideKeyboard
+import ru.maxultra.stonks.util.showNetworkErrorSnackBar
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
@@ -61,8 +60,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     binding.popularList.suggestionList.visibility = View.INVISIBLE
                     binding.popularEmptyText.visibility = View.VISIBLE
                     binding.refreshButton.visibility = View.VISIBLE
-                    requireContext().hideKeyboard(binding.root)
-                    showErrorSnackbar()
+                    showNetworkErrorSnackBar(binding.root)
                 }
             }
         }
@@ -85,10 +83,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.refreshButton.setOnClickListener { viewModel.getPopularStocks() }
 
         return root
-    }
-
-    fun showErrorSnackbar() {
-        Snackbar.make(binding.root, R.string.connection_error_snackbar, Snackbar.LENGTH_LONG).show()
     }
 
     private fun onItemClicked(stock: Stock) =
