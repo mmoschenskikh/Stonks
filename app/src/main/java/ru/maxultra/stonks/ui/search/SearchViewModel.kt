@@ -106,6 +106,7 @@ class SearchViewModel(
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 class SearchViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {

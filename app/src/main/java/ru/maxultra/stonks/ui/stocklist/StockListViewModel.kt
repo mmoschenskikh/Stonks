@@ -26,6 +26,7 @@ class StockListViewModel(private val stockRepository: StockRepository) : ViewMod
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 class StockListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(StockListViewModel::class.java)) {
