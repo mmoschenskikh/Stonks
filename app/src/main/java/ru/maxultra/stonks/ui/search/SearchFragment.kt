@@ -12,6 +12,7 @@ import ru.maxultra.stonks.R
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.FragmentSearchBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
+import ru.maxultra.stonks.ui.search.suggestionlist.SuggestionListAdapter
 import ru.maxultra.stonks.util.Status
 import ru.maxultra.stonks.util.hideKeyboard
 

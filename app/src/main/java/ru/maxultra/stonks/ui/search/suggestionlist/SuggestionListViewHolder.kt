@@ -1,4 +1,4 @@
-package ru.maxultra.stonks.ui.search
+package ru.maxultra.stonks.ui.search.suggestionlist
 
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxultra.stonks.data.model.Stock

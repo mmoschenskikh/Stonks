@@ -1,4 +1,4 @@
-package ru.maxultra.stonks.ui.search
+package ru.maxultra.stonks.ui.search.suggestionlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
