@@ -8,4 +8,5 @@
     <string name="clear_recent_queries">Clear</string>
     <string name="refresh_button">Refresh</string>
     <string name="list_is_empty">List is empty</string>
+    <string name="connection_error_snackbar">Connection error. Please check your internet connection and try again.</string>
 </resources>
