@@ -15,8 +15,7 @@
         android:text="@string/stocks" />
 
     <include
-        layout="@layout/fragment_general_stock_list"
-        android:id="@+id/searchResultList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/list"
+        layout="@layout/fragment_general_stock_list" />
+
 </LinearLayout>

@@ -9,4 +9,5 @@
     <string name="refresh_button">Refresh</string>
     <string name="list_is_empty">List is empty</string>
     <string name="connection_error_snackbar">Connection error. Please check your internet connection and try again.</string>
+    <string name="nothing_found">Nothing found. Try to change search request.</string>
 </resources>

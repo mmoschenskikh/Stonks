@@ -1,7 +1,9 @@
 package ru.maxultra.stonks.ui.search
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,7 +24,7 @@ class SearchViewModel(
         get() = _searchQuery
 
     private val stocks = stockRepository.getAllStocks()
-    private val searchResult = MutableLiveData<Set<String>>(emptySet())
+    val searchResult = MutableLiveData<Set<String>>(emptySet())
 
     val searchResultList = Transformations.map(stocks) { list ->
         val resultTickers = searchResult.value
@@ -32,6 +34,10 @@ class SearchViewModel(
             list.filter { it.ticker in resultTickers }
         }
     }
+
+    private val _searchStatus = MutableLiveData(Status.LOADING)
+    val searchStatus: LiveData<Status>
+        get() = _searchStatus
 
     private val placeholder = Stock("", "")
     private val placeholderList = listOf(placeholder, placeholder)
@@ -65,14 +71,36 @@ class SearchViewModel(
         _searchQuery.value = query
         searchJob?.cancel()
         search()
+        Log.d("SearchViewModel", "Hello from updateQuery")
     }
 
     fun search() {
+        Log.d("SearchViewModel", "Hello from search")
         searchJob = viewModelScope.launch {
-            searchQuery.value?.let {
-                delay(250L) // To decrease the number of network requests
-                if (it.isNotBlank())
-                    searchResult.postValue(searchRepository.search(it))
+            val query = searchQuery.value
+            if (query.isNullOrBlank()) {
+                _searchStatus.value = Status.SUCCESS
+                Log.d("SearchViewModel", "Hello from query.isNullOrBlank")
+            } else {
+                Log.d("SearchViewModel", "Hello from else")
+                search(query)
+            }
+        }
+    }
+
+    private suspend fun search(query: String) {
+        try {
+            _searchStatus.value = Status.LOADING
+            delay(250L) // To decrease the number of network requests
+            Log.d("SearchViewModel", "Hello from search($query)")
+            searchResult.value = searchRepository.search(query)
+            Log.d("SearchViewModel", "New result value is ${searchResult.value}")
+            _searchStatus.value = Status.SUCCESS
+        } catch (e: Exception) {
+            if (e !is CancellationException) {
+                _searchStatus.value = Status.ERROR
+                Log.e("SearchViewModel", "Hello from exception", e)
+                searchResult.value = emptySet()
             }
         }
     }
