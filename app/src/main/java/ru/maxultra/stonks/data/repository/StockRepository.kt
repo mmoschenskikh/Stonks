@@ -5,7 +5,9 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import ru.maxultra.stonks.data.database.StockDao
 import ru.maxultra.stonks.data.database.asDomainModel
+import ru.maxultra.stonks.data.database.asDomainProfile
 import ru.maxultra.stonks.data.model.Stock
+import ru.maxultra.stonks.data.model.StockDetails
 import ru.maxultra.stonks.data.network.FmpService
 import ru.maxultra.stonks.data.network.asDatabaseModel
 
@@ -26,6 +28,12 @@ class StockRepository(
      */
     fun getFavouriteStocks() = liveData<List<Stock>> {
         val source = Transformations.map(stockDao.getFavouriteStocks()) { it.asDomainModel() }
+        emitSource(source)
+    }
+
+    fun getStock(ticker: String) = liveData<StockDetails> {
+        val source =
+            Transformations.map(stockDao.getStockAsLiveData(ticker)) { it.asDomainProfile() }
         emitSource(source)
     }
 

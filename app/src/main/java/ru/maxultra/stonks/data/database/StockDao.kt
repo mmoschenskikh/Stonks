@@ -16,6 +16,9 @@ interface StockDao {
     fun getFavouriteStocks(): LiveData<List<DatabaseStock>>
 
     @Query("SELECT * FROM databasestock WHERE ticker = :ticker LIMIT 1")
+    fun getStockAsLiveData(ticker: String): LiveData<DatabaseStock>
+
+    @Query("SELECT * FROM databasestock WHERE ticker = :ticker LIMIT 1")
     suspend fun getStock(ticker: String): DatabaseStock
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

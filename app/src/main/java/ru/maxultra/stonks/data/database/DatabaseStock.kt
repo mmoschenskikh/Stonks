@@ -3,6 +3,7 @@ package ru.maxultra.stonks.data.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.maxultra.stonks.data.model.Stock
+import ru.maxultra.stonks.data.model.StockDetails
 import java.util.*
 
 /**
@@ -43,6 +44,29 @@ fun List<DatabaseStock>.asDomainModel() =
             favourite = it.favourite
         )
     }
+
+fun DatabaseStock.asDomainProfile(): StockDetails {
+    val curr = try {
+        currency?.run { Currency.getInstance(this) }
+    } catch (e: Exception) { // Default currency is USD
+        Currency.getInstance("USD")
+    }
+    return StockDetails(
+        ticker = ticker,
+        companyName = companyName ?: "",
+        currency = curr,
+        currentStockPrice = currentPrice,
+        dayChange = dayChange,
+        favourite = favourite,
+        description = description,
+        exchangeName = exchangeName,
+        sector = sector,
+        website = website,
+        priceDay = priceDay,
+        priceMonth = priceMonth,
+        priceYear = priceYear
+    )
+}
 
 /**
  * Updates some fields without losing existing.
