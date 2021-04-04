@@ -10,13 +10,14 @@ import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.data.network.StonksNetwork
 import ru.maxultra.stonks.data.repository.SearchRepository
 import ru.maxultra.stonks.data.repository.StockRepository
+import ru.maxultra.stonks.ui.base.BaseViewModel
 import ru.maxultra.stonks.util.Status
 import java.util.*
 
 class SearchViewModel(
     private val stockRepository: StockRepository,
     private val searchRepository: SearchRepository
-) : ViewModel() {
+) : BaseViewModel(searchRepository) {
     private val _searchQuery = MutableLiveData<String>()
     val searchQuery: LiveData<String>
         get() = _searchQuery
@@ -83,10 +84,6 @@ class SearchViewModel(
 
     fun onStockClicked(stock: Stock) = viewModelScope.launch {
         searchRepository.insertQuery(stock)
-    }
-
-    fun onFavouriteClicked(stock: Stock) = viewModelScope.launch {
-        stockRepository.toggleFavourite(stock)
     }
 
     fun onNavigateToSearchFragment() {
