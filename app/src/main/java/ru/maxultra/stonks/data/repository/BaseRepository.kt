@@ -3,7 +3,6 @@ package ru.maxultra.stonks.data.repository
 import android.util.Log
 import ru.maxultra.stonks.data.database.StockDao
 import ru.maxultra.stonks.data.database.update
-import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.data.network.FmpService
 
 abstract class BaseRepository(
@@ -13,8 +12,8 @@ abstract class BaseRepository(
     /**
      * Toggles the "favourite" state.
      */
-    suspend fun toggleFavourite(stock: Stock) {
-        val dbStock = stockDao.getStock(stock.ticker)
+    suspend fun toggleFavourite(ticker: String) {
+        val dbStock = stockDao.getStock(ticker)
         val newDbStock = dbStock.update(favourite = !dbStock.favourite)
         stockDao.update(newDbStock)
     }

@@ -70,6 +70,6 @@ class SearchResultFragment :
         Toast.makeText(requireContext(), stock.ticker, Toast.LENGTH_SHORT).show()
     }
 
-    private fun onFavouriteClicked(stock: Stock) = viewModel.onFavouriteClicked(stock)
+    private fun onFavouriteClicked(stock: Stock) = viewModel.onFavouriteClicked(stock.ticker)
 
 }

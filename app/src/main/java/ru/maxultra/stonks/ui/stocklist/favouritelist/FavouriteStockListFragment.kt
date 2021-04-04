@@ -50,5 +50,5 @@ class FavouriteStockListFragment :
     private fun onItemClicked(stock: Stock) = // TODO: Should open StockDetailsFragment
         Toast.makeText(context, stock.ticker, Toast.LENGTH_SHORT).show()
 
-    private fun onFavouriteClicked(stock: Stock) = viewModel.onFavouriteClicked(stock)
+    private fun onFavouriteClicked(stock: Stock) = viewModel.onFavouriteClicked(stock.ticker)
 }
