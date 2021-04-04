@@ -29,6 +29,7 @@ object Versions {
     const val coroutines = "1.4.2"
     const val lifecycle = "2.3.0"
     const val coil = "1.1.1"
+    const val swipeToRefresh = "1.1.0"
 
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
@@ -52,6 +53,8 @@ object Android {
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val coordinatorLayout =
         "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinatorLayout}"
+    const val swipeToRefresh =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeToRefresh}"
 }
 
 object Coroutines {

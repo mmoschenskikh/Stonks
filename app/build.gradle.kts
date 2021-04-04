@@ -52,6 +52,7 @@ dependencies {
     implementation(Android.constraintLayout)
     implementation(Android.coordinatorLayout)
     implementation(Android.coreKtx)
+    implementation(Android.swipeToRefresh)
 
     implementation(Room.runtime)
     implementation(Room.ktx)
