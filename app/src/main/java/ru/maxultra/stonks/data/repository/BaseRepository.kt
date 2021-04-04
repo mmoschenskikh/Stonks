@@ -1,5 +1,6 @@
 package ru.maxultra.stonks.data.repository
 
+import android.util.Log
 import ru.maxultra.stonks.data.database.StockDao
 import ru.maxultra.stonks.data.database.update
 import ru.maxultra.stonks.data.model.Stock
@@ -23,6 +24,7 @@ abstract class BaseRepository(
      * Some stocks may be discarded (considered as invalid) to provide better UX.
      */
     suspend fun updateProfiles(tickerList: List<String>) {
+        Log.d("BaseRepository", "Updating ${tickerList.size} profiles")
         tickerList.chunked(50).forEach { chunk ->
             val query = chunk.joinToString()
             val response = fmpService.getProfile(query)

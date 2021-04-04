@@ -1,9 +1,12 @@
 package ru.maxultra.stonks.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
-import ru.maxultra.stonks.data.database.*
+import ru.maxultra.stonks.data.database.RecentQueriesDao
+import ru.maxultra.stonks.data.database.StockDao
+import ru.maxultra.stonks.data.database.asDomainModel
+import ru.maxultra.stonks.data.database.asRecentQuery
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.data.network.FmpService
 import ru.maxultra.stonks.data.network.asDatabaseModel
@@ -33,16 +36,14 @@ class SearchRepository(
 
     suspend fun clearRecentQueries() = recentQueriesDao.clear()
 
-    // FIXME
-    fun search(query: String): LiveData<List<DatabaseStock>> = liveData {
-        emit(emptyList())
+    suspend fun search(query: String): Set<String> {
+        Log.d("SearchRepository", "Searching for \"$query\"")
         val searchResultList = fmpService.search(query)
             .filter { it.ticker.length < 13 && it.companyName != null }
         stockDao.insertAll(searchResultList.asDatabaseModel())
         val foundTickers = searchResultList.map { it.ticker }
-        val source =
-            Transformations.map(stockDao.getStocks()) { list -> list.filter { it.ticker in foundTickers } }
-        emitSource(source)
+        Log.d("SearchRepository", "Found ${foundTickers.size} stocks")
         updateProfiles(foundTickers)
+        return foundTickers.toSet()
     }
 }

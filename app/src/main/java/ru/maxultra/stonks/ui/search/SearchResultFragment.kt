@@ -38,7 +38,7 @@ class SearchResultFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.searchResult.observe(viewLifecycleOwner) {
+        viewModel.searchResultList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }

@@ -12,19 +12,26 @@ import ru.maxultra.stonks.data.repository.SearchRepository
 import ru.maxultra.stonks.data.repository.StockRepository
 import ru.maxultra.stonks.ui.base.BaseViewModel
 import ru.maxultra.stonks.util.Status
-import java.util.*
 
 class SearchViewModel(
-    private val stockRepository: StockRepository,
+    stockRepository: StockRepository,
     private val searchRepository: SearchRepository
 ) : BaseViewModel(searchRepository) {
     private val _searchQuery = MutableLiveData<String>()
     val searchQuery: LiveData<String>
         get() = _searchQuery
 
-    private val _searchResult = MutableLiveData<List<Stock>>()
-    val searchResult: LiveData<List<Stock>>
-        get() = _searchResult
+    private val stocks = stockRepository.getAllStocks()
+    private val searchResult = MutableLiveData<Set<String>>(emptySet())
+
+    val searchResultList = Transformations.map(stocks) { list ->
+        val resultTickers = searchResult.value
+        if (resultTickers.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            list.filter { it.ticker in resultTickers }
+        }
+    }
 
     private val placeholder = Stock("", "")
     private val placeholderList = listOf(placeholder, placeholder)
@@ -63,7 +70,9 @@ class SearchViewModel(
     fun search() {
         searchJob = viewModelScope.launch {
             searchQuery.value?.let {
-                if (it.isNotBlank()) _searchResult.postValue(stockRepository.search(it))
+                delay(250L) // To decrease the number of network requests
+                if (it.isNotBlank())
+                    searchResult.postValue(searchRepository.search(it))
             }
         }
     }
