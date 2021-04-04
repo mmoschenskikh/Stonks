@@ -34,7 +34,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         viewModel.searchQuery.observe(viewLifecycleOwner) {
             val navController = findNavController()
             if (it.isNotBlank() && navController.currentDestination!!.id == R.id.searchFragment) {
-                navController.navigate(R.id.action_searchFragment_to_searchResultFragment)
+                navController.navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment())
             }
         }
 

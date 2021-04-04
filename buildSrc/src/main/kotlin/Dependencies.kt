@@ -44,6 +44,7 @@ object BuildPlugins {
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKapt = "kotlin-kapt"
     const val ktLint = "org.jlleitschuh.gradle.ktlint"
+    const val kotlinSafeArgs = "androidx.navigation.safeargs.kotlin"
 }
 
 object Android {
@@ -77,6 +78,8 @@ object Navigation {
     const val navigationFragmentKtx =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+    const val safeArgs =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 }
 
 object Moshi {

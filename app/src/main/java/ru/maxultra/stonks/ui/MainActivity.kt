@@ -14,6 +14,7 @@ import ru.maxultra.stonks.ui.search.SearchViewModel
 import ru.maxultra.stonks.ui.search.SearchViewModelFactory
 import ru.maxultra.stonks.ui.search.clear
 import ru.maxultra.stonks.ui.search.manageSearchBar
+import ru.maxultra.stonks.ui.tabs.TabsFragmentDirections
 import ru.maxultra.stonks.util.hideKeyboard
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         searchViewModel.navigateToSearchFragment.observe(this) {
             if (it == true) {
-                navController.navigate(R.id.action_tabsFragment_to_searchFragment)
+                navController.navigate(TabsFragmentDirections.actionTabsFragmentToSearchFragment())
                 searchViewModel.onNavigationToSearchFragmentFinished()
             }
         }

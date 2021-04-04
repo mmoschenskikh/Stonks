@@ -3,6 +3,7 @@ plugins {
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.kotlinKapt)
     id(BuildPlugins.ktLint)
+    id(BuildPlugins.kotlinSafeArgs)
 }
 
 android {

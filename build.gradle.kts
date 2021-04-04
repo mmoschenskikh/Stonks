@@ -8,6 +8,7 @@ buildscript {
         classpath(BuildPlugins.gradle)
         classpath(BuildPlugins.kotlinGradle)
         classpath(Dependencies.ktLint)
+        classpath(Navigation.safeArgs)
     }
 }
 
