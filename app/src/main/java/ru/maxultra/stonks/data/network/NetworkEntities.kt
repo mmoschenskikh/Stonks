@@ -24,7 +24,7 @@ data class PopularListStock(
 
 fun List<PopularListStock>.asDomainModel() =
     map {
-        Stock(ticker = it.ticker, companyName = it.companyName)
+        Stock(ticker = it.ticker, companyName = it.companyName ?: "")
     }
 
 data class NetworkProfileStock(

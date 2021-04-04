@@ -15,6 +15,6 @@ fun Stock.asRecentQuery() = SearchQuery(ticker = ticker, companyName = companyNa
 fun List<SearchQuery>.asDomainModel() = map {
     Stock(
         ticker = it.ticker,
-        companyName = it.companyName
+        companyName = it.companyName ?: ""
     )
 }

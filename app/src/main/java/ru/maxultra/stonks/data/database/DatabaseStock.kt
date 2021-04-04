@@ -34,7 +34,7 @@ fun List<DatabaseStock>.asDomainModel() =
         }
         Stock(
             ticker = it.ticker,
-            companyName = it.companyName,
+            companyName = it.companyName ?: "",
             logoUrl = it.logoUrl,
             currency = currency,
             currentStockPrice = it.currentPrice,
