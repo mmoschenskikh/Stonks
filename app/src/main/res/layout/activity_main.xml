@@ -28,6 +28,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp" />
+
+            <include
+                android:id="@+id/detailsTopNav"
+                layout="@layout/details_top_nav"
+                android:visibility="gone" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
