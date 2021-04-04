@@ -1,4 +1,4 @@
-package ru.maxultra.stonks.ui.stocklist
+package ru.maxultra.stonks.ui.stocklist.recyclerview
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView

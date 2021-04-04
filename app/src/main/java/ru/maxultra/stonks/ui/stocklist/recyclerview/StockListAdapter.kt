@@ -1,4 +1,4 @@
-package ru.maxultra.stonks.ui.stocklist
+package ru.maxultra.stonks.ui.stocklist.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

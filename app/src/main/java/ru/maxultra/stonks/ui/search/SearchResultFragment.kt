@@ -10,7 +10,7 @@ import ru.maxultra.stonks.R
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.FragmentSearchResultBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
-import ru.maxultra.stonks.ui.stocklist.StockListAdapter
+import ru.maxultra.stonks.ui.stocklist.recyclerview.StockListAdapter
 
 class SearchResultFragment :
     BaseFragment<FragmentSearchResultBinding>(FragmentSearchResultBinding::inflate) {
