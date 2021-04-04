@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity(), DetailsToolbarHandler {
     private val viewModelFactory by lazy { SearchViewModelFactory(this) }
     private val searchViewModel by viewModels<SearchViewModel> { viewModelFactory }
 
+    private var searchBarFocused = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -45,7 +47,8 @@ class MainActivity : AppCompatActivity(), DetailsToolbarHandler {
 
         searchViewModel.navigateToSearchFragment.observe(this) {
             if (it == true) {
-                navController.navigate(TabsFragmentDirections.actionTabsFragmentToSearchFragment())
+                if (navController.currentDestination!!.id == R.id.tabsFragment)
+                    navController.navigate(TabsFragmentDirections.actionTabsFragmentToSearchFragment())
                 searchViewModel.onNavigationToSearchFragmentFinished()
             }
         }
@@ -63,6 +66,7 @@ class MainActivity : AppCompatActivity(), DetailsToolbarHandler {
             }
             val params = binding.toolbar.layoutParams as AppBarLayout.LayoutParams
             if (destination.id == R.id.stockCardFragment) {
+                searchBarFocused = binding.searchBar.searchEditText.isFocused
                 binding.searchBar.root.visibility = View.GONE
                 params.scrollFlags = 0
                 binding.detailsTopNav.root.visibility = View.VISIBLE
@@ -73,6 +77,8 @@ class MainActivity : AppCompatActivity(), DetailsToolbarHandler {
                 params.scrollFlags =
                     AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
                 binding.searchBar.root.visibility = View.VISIBLE
+                if (searchBarFocused) binding.searchBar.searchEditText.requestFocus()
+                searchBarFocused = false
             }
             binding.toolbar.layoutParams = params
         }
@@ -93,9 +99,7 @@ class MainActivity : AppCompatActivity(), DetailsToolbarHandler {
         binding.detailsTopNav.ticker.text = stock.ticker
         binding.detailsTopNav.companyName.text = stock.companyName
         binding.detailsTopNav.rightIcon.setOnClickListener {
-            searchViewModel.onFavouriteClicked(
-                stock.ticker
-            )
+            searchViewModel.onFavouriteClicked(stock.ticker)
         }
         binding.detailsTopNav.rightIcon.setImageResource(getStarImage(stock.favourite))
     }
