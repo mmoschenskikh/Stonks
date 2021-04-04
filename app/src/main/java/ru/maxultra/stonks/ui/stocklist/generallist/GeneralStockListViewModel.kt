@@ -1,7 +1,6 @@
 package ru.maxultra.stonks.ui.stocklist.generallist
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.maxultra.stonks.data.database.StockDatabase
@@ -18,6 +17,11 @@ class GeneralStockListViewModel(private val stockRepository: StockRepository) :
     val stockListStatus: LiveData<Status>
         get() = _stockListStatus
 
+    init {
+        fetchStockList()
+        refreshStockList()
+    }
+
     fun fetchStockList() = viewModelScope.launch {
         try {
             _stockListStatus.value = Status.LOADING
@@ -31,7 +35,6 @@ class GeneralStockListViewModel(private val stockRepository: StockRepository) :
     fun refreshStockList() = viewModelScope.launch {
         try {
             _stockListStatus.value = Status.LOADING
-            Log.d("StockListViewModel", "Value is ${stocks.value}")
             stocks.value?.let { list -> stockRepository.updateProfiles(list.map { it.ticker }) }
             _stockListStatus.value = Status.SUCCESS
         } catch (e: Exception) {

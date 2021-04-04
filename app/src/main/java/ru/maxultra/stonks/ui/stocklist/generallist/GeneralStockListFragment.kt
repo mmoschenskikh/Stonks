@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.snackbar.Snackbar
-import ru.maxultra.stonks.R
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.FragmentGeneralStockListBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
 import ru.maxultra.stonks.ui.stocklist.recyclerview.StockListAdapter
 import ru.maxultra.stonks.util.Status
-import ru.maxultra.stonks.util.hideKeyboard
+import ru.maxultra.stonks.util.showNetworkErrorSnackBar
 
 class GeneralStockListFragment :
     BaseFragment<FragmentGeneralStockListBinding>(FragmentGeneralStockListBinding::inflate) {
@@ -33,41 +31,30 @@ class GeneralStockListFragment :
 
         viewModel.stocks.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            if (it.isEmpty()) {
+                binding.stockList.visibility = View.INVISIBLE
+                binding.listEmptyText.visibility = View.VISIBLE
+            } else {
+                binding.listEmptyText.visibility = View.INVISIBLE
+                binding.stockList.visibility = View.VISIBLE
+            }
         }
 
         viewModel.stockListStatus.observe(viewLifecycleOwner) {
             when (it) {
-                Status.LOADING -> {
-                    binding.stockList.visibility = View.INVISIBLE
-                    binding.listEmptyText.visibility = View.INVISIBLE
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                    binding.listEmptyText.visibility = View.INVISIBLE
-                    binding.stockList.visibility = View.VISIBLE
-                }
+                Status.LOADING -> binding.swipeRefresh.isRefreshing = true
+                Status.SUCCESS -> binding.swipeRefresh.isRefreshing = false
                 else -> {
-                    if (adapter.itemCount == 0) {
-                        binding.stockList.visibility = View.INVISIBLE
-                        binding.progressBar.visibility = View.INVISIBLE
-                        binding.listEmptyText.visibility = View.VISIBLE
-                    } else {
-                        binding.progressBar.visibility = View.INVISIBLE
-                        binding.listEmptyText.visibility = View.INVISIBLE
-                        binding.stockList.visibility = View.VISIBLE
-                    }
-                    requireContext().hideKeyboard(binding.root)
-                    showErrorSnackbar()
+                    binding.swipeRefresh.isRefreshing = false
+                    showNetworkErrorSnackBar(binding.root)
                 }
             }
         }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.fetchStockList()
+        }
 
         return root
-    }
-
-    fun showErrorSnackbar() {
-        Snackbar.make(binding.root, R.string.connection_error_snackbar, Snackbar.LENGTH_LONG).show()
     }
 
     private fun onItemClicked(stock: Stock) = // TODO: Should open StockDetailsFragment

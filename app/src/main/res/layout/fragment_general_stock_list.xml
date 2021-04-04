@@ -22,15 +22,6 @@
             tools:listitem="@layout/item_stock" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateDrawable="@drawable/progressbar"
-        android:visibility="invisible" />
-
     <TextView
         android:id="@+id/listEmptyText"
         style="@style/ListEmptyText"

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.google.android.material.snackbar.Snackbar
 import ru.maxultra.stonks.R
 import java.text.NumberFormat
 import java.util.*
@@ -34,4 +35,9 @@ fun priceDeltaColor(priceDelta: Double) = when {
     priceDelta > 0 -> R.color.stock_raise
     priceDelta < 0 -> R.color.stock_fall
     else -> R.color.black
+}
+
+fun showNetworkErrorSnackBar(view: View) {
+    view.context.hideKeyboard(view)
+    Snackbar.make(view, R.string.connection_error_snackbar, Snackbar.LENGTH_LONG).show()
 }
