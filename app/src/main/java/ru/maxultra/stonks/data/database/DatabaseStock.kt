@@ -20,6 +20,7 @@ data class DatabaseStock(
     val exchangeName: String? = null,
     val sector: String? = null,
     val website: String? = null,
+    val priceDay: String? = null,
     val priceMonth: String? = null,
     val priceYear: String? = null,
     val favourite: Boolean = false
@@ -56,6 +57,7 @@ fun DatabaseStock.update(
     exchangeName: String? = null,
     sector: String? = null,
     website: String? = null,
+    priceDay: String? = null,
     priceMonth: String? = null,
     priceYear: String? = null,
     favourite: Boolean? = null
@@ -70,6 +72,7 @@ fun DatabaseStock.update(
     exchangeName = exchangeName ?: this.exchangeName,
     sector = sector ?: this.sector,
     website = website ?: this.website,
+    priceDay = priceDay ?: this.priceDay,
     priceMonth = priceMonth ?: this.priceMonth,
     priceYear = priceYear ?: this.priceYear,
     favourite = favourite ?: this.favourite
