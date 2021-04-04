@@ -43,5 +43,9 @@
         android:id="@+id/stockCardFragment"
         android:name="ru.maxultra.stonks.ui.details.StockDetailsFragment"
         android:label="fragment_stock_card"
-        tools:layout="@layout/fragment_stock_details" />
+        tools:layout="@layout/fragment_stock_details">
+        <argument
+            android:name="ticker"
+            app:argType="string" />
+    </fragment>
 </navigation>
