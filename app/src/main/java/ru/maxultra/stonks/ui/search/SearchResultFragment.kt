@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import ru.maxultra.stonks.R
@@ -65,9 +64,13 @@ class SearchResultFragment :
         return root
     }
 
-    private fun onItemClicked(stock: Stock) { // TODO: Should open StockDetailsFragment
+    private fun onItemClicked(stock: Stock) {
         viewModel.onStockClicked(stock)
-        Toast.makeText(requireContext(), stock.ticker, Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            SearchResultFragmentDirections.actionSearchResultFragmentToStockCardFragment(
+                stock.ticker
+            )
+        )
     }
 
     private fun onFavouriteClicked(stock: Stock) = viewModel.onFavouriteClicked(stock.ticker)

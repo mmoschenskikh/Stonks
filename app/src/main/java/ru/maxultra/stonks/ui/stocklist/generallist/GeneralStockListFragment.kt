@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.databinding.FragmentGeneralStockListBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
 import ru.maxultra.stonks.ui.stocklist.recyclerview.StockListAdapter
+import ru.maxultra.stonks.ui.tabs.TabsFragmentDirections
 import ru.maxultra.stonks.util.Status
 import ru.maxultra.stonks.util.showNetworkErrorSnackBar
 
@@ -57,14 +58,9 @@ class GeneralStockListFragment :
         return root
     }
 
-    private fun onItemClicked(stock: Stock) = // TODO: Should open StockDetailsFragment
-        Toast.makeText(context, stock.ticker, Toast.LENGTH_SHORT).show()
-        findNavController().navigate(
-            TabsFragmentDirections.actionTabsFragmentToStockCardFragment(
-                stock.ticker
-            )
-        )
-    }
+    private fun onItemClicked(stock: Stock) = findNavController()
+        .navigate(TabsFragmentDirections.actionTabsFragmentToStockCardFragment(stock.ticker))
+
 
     private fun onFavouriteClicked(stock: Stock) = viewModel.onFavouriteClicked(stock.ticker)
 }
