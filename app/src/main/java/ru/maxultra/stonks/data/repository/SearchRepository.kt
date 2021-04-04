@@ -2,19 +2,18 @@ package ru.maxultra.stonks.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import ru.maxultra.stonks.data.database.RecentQueriesDao
-import ru.maxultra.stonks.data.database.StockDao
-import ru.maxultra.stonks.data.database.asDomainModel
-import ru.maxultra.stonks.data.database.asRecentQuery
+import androidx.lifecycle.liveData
+import ru.maxultra.stonks.data.database.*
 import ru.maxultra.stonks.data.model.Stock
 import ru.maxultra.stonks.data.network.FmpService
+import ru.maxultra.stonks.data.network.asDatabaseModel
 import ru.maxultra.stonks.data.network.asDomainModel
 
 class SearchRepository(
     private val stockDao: StockDao,
     private val recentQueriesDao: RecentQueriesDao,
     private val fmpService: FmpService
-) {
+) : BaseRepository(stockDao, fmpService) {
     suspend fun getPopularStocks(): List<Stock> =
         fmpService.getPopular()
             .filterNot { it.companyName.isNullOrBlank() }
@@ -33,4 +32,17 @@ class SearchRepository(
     }
 
     suspend fun clearRecentQueries() = recentQueriesDao.clear()
+
+    // FIXME
+    fun search(query: String): LiveData<List<DatabaseStock>> = liveData {
+        emit(emptyList())
+        val searchResultList = fmpService.search(query)
+            .filter { it.ticker.length < 13 && it.companyName != null }
+        stockDao.insertAll(searchResultList.asDatabaseModel())
+        val foundTickers = searchResultList.map { it.ticker }
+        val source =
+            Transformations.map(stockDao.getStocks()) { list -> list.filter { it.ticker in foundTickers } }
+        emitSource(source)
+        updateProfiles(foundTickers)
+    }
 }
