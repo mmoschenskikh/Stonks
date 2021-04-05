@@ -48,6 +48,7 @@ dependencies {
     implementation(Dependencies.materialDesign)
 
     implementation(Dependencies.coil)
+    implementation(Dependencies.chart)
 
     implementation(Android.appcompat)
     implementation(Android.constraintLayout)

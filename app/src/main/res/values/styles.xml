@@ -88,4 +88,13 @@
         <item name="android:textStyle">bold</item>
         <item name="lineHeight">20sp</item>
     </style>
+
+    <style name="ChartStockPrice" parent="StonksAppText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="lineHeight">32sp</item>
+    </style>
+
+    <style name="ChartPriceChange" parent="SmallText" />
+
 </resources>

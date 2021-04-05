@@ -31,6 +31,8 @@ object Versions {
     const val coil = "1.1.1"
     const val swipeToRefresh = "1.1.0"
 
+    const val chart = "v3.1.0"
+
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
     const val espresso = "3.3.0"
@@ -68,6 +70,7 @@ object Dependencies {
     const val ktLint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
     const val materialDesign = "com.google.android.material:material:${Versions.material}"
     const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val chart = "com.github.PhilJay:MPAndroidChart:${Versions.chart}"
 }
 
 object Lifecycle {
