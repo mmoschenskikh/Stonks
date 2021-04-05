@@ -21,6 +21,9 @@ interface StockDao {
     @Query("SELECT * FROM databasestock WHERE ticker = :ticker LIMIT 1")
     suspend fun getStock(ticker: String): DatabaseStock
 
+    @Query("SELECT EXISTS(SELECT * FROM databasestock WHERE ticker = :ticker)")
+    suspend fun stockExists(ticker: String): Boolean
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(stocks: List<DatabaseStock>)
 

@@ -53,3 +53,8 @@ fun NetworkProfileStock.asDatabaseModel() =
         sector = sector,
         website = website
     )
+
+data class NetworkChartPoint(
+    @Json(name = "date") val date: String,
+    @Json(name = "close") val price: Double
+)
