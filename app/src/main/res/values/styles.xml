@@ -33,6 +33,12 @@
         <item name="android:lineSpacingExtra">2sp</item>
     </style>
 
+    <style name="SummaryTitle" parent="LargeText">
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginTop">11dp</item>
+        <item name="android:layout_marginBottom">11dp</item>
+    </style>
+
     <style name="DetailsTickerText" parent="LargeText" />
 
     <style name="SmallText" parent="StonksAppText">
@@ -47,6 +53,8 @@
     <style name="SideActionText" parent="SmallText" />
 
     <style name="DetailsCompanyNameText" parent="SmallText" />
+
+    <style name="SummaryText" parent="SmallText" />
 
     <style name="ListEmptyText" parent="StonksAppText">
         <item name="android:textColor">@color/grey</item>

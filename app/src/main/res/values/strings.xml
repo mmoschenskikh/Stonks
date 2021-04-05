@@ -7,7 +7,14 @@
     <string name="search_hint">Find company or ticker</string>
     <string name="clear_recent_queries">Clear</string>
     <string name="refresh_button">Refresh</string>
-    <string name="list_is_empty">List is empty</string>
+    <string name="list_is_empty">Nothing to show</string>
     <string name="connection_error_snackbar">Connection error. Please check your internet connection and try again.</string>
-    <string name="nothing_found">Nothing found. Try to change search request.</string>
+    <string name="nothing_found">Nothing to show. Try to change search request.</string>
+    <string name="chart">Chart</string>
+    <string name="summary">Summary</string>
+    <string name="company_name">Company name</string>
+    <string name="sector">Sector</string>
+    <string name="website">Website</string>
+    <string name="exchange">Exchange</string>
+    <string name="description">Description</string>
 </resources>
