@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity(), DetailsToolbarHandler {
                 binding.detailsTopNav.root.visibility = View.GONE
                 binding.detailsTopNav.ticker.text = null
                 binding.detailsTopNav.companyName.text = null
+                binding.detailsTopNav.rightIcon.setImageResource(getStarImage(false))
                 params.scrollFlags =
                     AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
                 binding.searchBar.root.visibility = View.VISIBLE
