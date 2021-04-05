@@ -13,6 +13,8 @@ import ru.maxultra.stonks.databinding.FragmentStockDetailsBinding
 import ru.maxultra.stonks.ui.base.BaseFragment
 import ru.maxultra.stonks.ui.details.tabs.DetailsTabSelectionListener
 import ru.maxultra.stonks.ui.details.tabs.DetailsTabsAdapter
+import ru.maxultra.stonks.util.Status
+import ru.maxultra.stonks.util.showNetworkErrorSnackBar
 
 class StockDetailsFragment :
     BaseFragment<FragmentStockDetailsBinding>(FragmentStockDetailsBinding::inflate) {
@@ -41,6 +43,16 @@ class StockDetailsFragment :
             if (it != null)
                 activity.setDetailsToolbarFields(it)
         }
+
+        viewModel.status.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
+            when (it) {
+                Status.LOADING -> binding.swipeRefresh.isRefreshing = true
+                Status.ERROR -> showNetworkErrorSnackBar(binding.root)
+            }
+        }
+
+        binding.swipeRefresh.setOnRefreshListener { viewModel.refreshStock(args.ticker) }
 
         binding.viewPager.adapter = DetailsTabsAdapter(this)
 
