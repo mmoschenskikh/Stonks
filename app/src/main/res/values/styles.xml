@@ -78,4 +78,14 @@
         <item name="lineHeight">24sp</item>
         <item name="textAllCaps">false</item>
     </style>
+
+    <style name="DetailsTabSelected" parent="LargeText" />
+
+    <style name="DetailsTab">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="lineHeight">20sp</item>
+    </style>
 </resources>
