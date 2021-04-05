@@ -29,11 +29,13 @@ class SummaryFragment : BaseFragment<FragmentSummaryBinding>(FragmentSummaryBind
         binding.description.title.text = getString(R.string.description)
 
         viewModel.stock.observe(viewLifecycleOwner) {
-            setBlockFields(binding.companyName, it.companyName)
-            setBlockFields(binding.sector, it.sector)
-            setBlockFields(binding.website, it.website)
-            setBlockFields(binding.exchange, it.exchangeName)
-            setBlockFields(binding.description, it.description)
+            if (it != null) {
+                setBlockFields(binding.companyName, it.companyName)
+                setBlockFields(binding.sector, it.sector)
+                setBlockFields(binding.website, it.website)
+                setBlockFields(binding.exchange, it.exchangeName)
+                setBlockFields(binding.description, it.description)
+            }
         }
 
         return root

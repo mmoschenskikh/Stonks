@@ -38,7 +38,8 @@ class StockDetailsFragment :
         viewModel.setTicker(args.ticker)
 
         viewModel.stock.observe(viewLifecycleOwner) {
-            activity.setDetailsToolbarFields(it)
+            if (it != null)
+                activity.setDetailsToolbarFields(it)
         }
 
         binding.viewPager.adapter = DetailsTabsAdapter(this)

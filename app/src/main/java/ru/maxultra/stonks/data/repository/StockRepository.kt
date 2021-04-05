@@ -37,7 +37,11 @@ class StockRepository(
         emitSource(source)
     }
 
-    fun getStock(ticker: String) = liveData<StockDetails> {
+    fun getStock(ticker: String) = liveData<StockDetails?> {
+        while (!stockDao.stockExists(ticker)) {
+            emit(null)
+            delay(1_000L)
+        }
         val source =
             Transformations.map(stockDao.getStockAsLiveData(ticker)) { it.asDomainProfile() }
         emitSource(source)
